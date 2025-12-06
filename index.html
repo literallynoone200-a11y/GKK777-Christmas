@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ကစားသမား စာရင်း (No. | Username)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+            
+            /* Christmas Theme Background & Effects - Updated to Deep Dark Red #400000 */
+            background-color: #400000; /* Deep Dark Red */
+            background-image: linear-gradient(to bottom, #400000, #660000); /* Gradient to a slightly lighter deep red */
+            overflow: hidden; 
+            position: relative;
+            padding-top: 6rem; /* Add top padding to body to account for fixed nav bar (h-24 ~ 6rem) */
+        }
+        
+        /* --- Snowflakes CSS --- */
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        .snowflake {
+            position: absolute;
+            background: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            will-change: transform;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            z-index: 10;
+        }
+
+        /* List scrollbar style for better looks (Dark Red track) */
+        #list-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #list-container::-webkit-scrollbar-track {
+            background: #330000; /* Even darker red track */
+            border-radius: 10px;
+        }
+
+        #list-container::-webkit-scrollbar-thumb {
+            background: #ffd700; /* Gold thumb (kept for contrast) */
+            border-radius: 10px;
+        }
+
+        /* Table styling for zebra stripes and borders - Adjusted for Darker Red */
+        .player-row:nth-child(even) {
+            background-color: rgba(90, 0, 0, 0.6); /* Darker Red transparency */
+        }
+        .player-row:nth-child(odd) {
+            background-color: rgba(102, 0, 0, 0.6); /* Slightly Lighter Dark Red transparency */
+        }
+        /* Hover effect */
+        .player-row:hover {
+            background-color: rgba(130, 0, 0, 0.7) !important; /* Brighter red on hover */
+        }
+
+        /* Styling for cells */
+        .player-cell {
+            padding: 10px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2); /* Light gold/yellow border */
+        }
+    </style>
+</head>
+<body class="antialiased text-white relative pt-24 pb-10"> 
+    
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#590000] shadow-xl border-b border-yellow-300/50 h-20 flex items-center">
+        <div class="container mx-auto px-4 flex justify-between items-center w-full">
+            <div class="flex items-center space-x-3">
+                <img src="https://i0.wp.com/gkk777.net/wp-content/uploads/2025/05/photo_2024-05-05_18-26-46.jpg?fit=640%2C640&ssl=1" 
+                     alt="GKK 99 Logo" 
+                     class="h-10 w-10 rounded-lg border-2 border-yellow-300 object-cover"
+                     onerror="this.src='https://placehold.co/40x40/ffd700/400000?text=L';"
+                >
+                <span class="text-xl font-bold text-yellow-300 hidden sm:inline">GKK777</span>
+            </div>
+            
+            <button onclick="window.location.href='https://gkk777cta.mssg.me/'"
+                    class="px-4 py-2 bg-yellow-400 text-[#400000] font-semibold rounded-full shadow-md hover:bg-yellow-300 transition duration-300 transform hover:scale-105 active:scale-95">
+                ဆက်သွယ်ရန်
+            </button>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-4 w-full max-w-sm md:max-w-md lg:max-w-lg z-10 relative">
+
+        <header class="text-center mb-6">
+            <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg">
+                Congratulations
+            </h1>
+            <p class="text-lg text-white-200 mt-1">
+                2026 နှစ်သစ် ကံကောင်းခြင်း ငွေသွင်းမလို 
+အခမဲ့ဘောနပ်ကို Channel Join ရရှိသွားသောမန်ဘာများ
+            </p>
+        </header>
+
+        <div id="list-container" 
+             class="bg-[#590000]/70 rounded-xl shadow-2xl backdrop-blur-sm border border-[#660000]/50 overflow-hidden overflow-y-auto h-[70vh] w-full transition duration-500">
+            
+            <table class="min-w-full divide-y divide-[#660000]">
+                <thead class="bg-[#590000] sticky top-0 z-20 shadow-lg border-b border-yellow-300">
+                    <tr>
+                        <th scope="col" class="player-cell w-1/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">
+                            No
+                        </th>
+                        <th scope="col" class="player-cell w-3/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">
+                            Username
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="player-table-body" class="bg-transparent divide-y divide-[#660000]">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.getElementById('player-table-body');
+            const body = document.body;
+            const SNOWFLAKE_COUNT = 100;
+
+            if (!tableBody) return;
+
+            // --- 1. Username ကို တစ်လုံးခြား (*) ဖြင့် အစားထိုးသည့် Function (Updated) ---
+            function maskUsername(username) {
+                if (!username) return "";
+                let masked = "";
+                let charCount = 0; // စစ်မှန်သော အက္ခရာ/နံပါတ်များကိုသာ ရေတွက်ရန်
+
+                for (let i = 0; i < username.length; i++) {
+                    const char = username[i];
+                    
+                    if (char === ' ') {
+                        // space ကို နဂိုအတိုင်းထားမည်
+                        masked += ' ';
+                    } else {
+                        // စစ်မှန်သော အက္ခရာ/နံပါတ်ဖြစ်ပါက တစ်လုံးခြား Masking လုပ်မည်
+                        if (charCount % 2 === 0) {
+                            // 0, 2, 4, ... index များ (နဂိုအတိုင်းထား)
+                            masked += char;
+                        } else {
+                            // 1, 3, 5, ... index များ (ကြယ်ပွင့်ပြောင်း)
+                            masked += '*';
+                        }
+                        charCount++;
+                    }
+                }
+                return masked;
+            }
+            
+            // --- 2. Snowflakes Creation ---
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+
+                // အရွယ်အစားကို ကျပန်းသတ်မှတ် (1px to 4px)
+                const size = Math.random() * 3 + 1; 
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+
+                // စတင်နေရာကို ကျပန်းသတ်မှတ် (0% to 100%)
+                const startX = Math.random() * 100;
+                snowflake.style.left = `${startX}vw`;
+
+                // Animation ကြာချိန်ကို ကျပန်းသတ်မှတ် (10s and 30s)
+                const duration = Math.random() * 20 + 10; 
+                snowflake.style.animationDuration = `${duration}s`;
+
+                // Animation စတင်ချိန်ကို ကျပန်းသတ်မှတ် (တစ်ပြိုင်တည်း မကျစေရန်)
+                const delay = Math.random() * 15;
+                snowflake.style.animationDelay = `-${delay}s`;
+
+                // မျက်နှာပြင် အပေါ်မှ စတင်စေရန်
+                snowflake.style.top = `${-Math.random() * 100}px`;
+
+                body.appendChild(snowflake);
+            }
+
+            for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
+                createSnowflake();
+            }
+            
+            // --- 3. Player List Generation (ဖုန်းနံပါတ်စာရင်း ၃၀၀ ခု) ---
+            function generatePlayerList() {
+                // ပေးပို့ထားသော ဖုန်းနံပါတ်စာရင်း (Username အဖြစ် အစားထိုးထားသည်)
+                const usernames = [
+                    "09 8745 63214", "09 4128 75903", "09 5693 28147", "09 1074 86325", "09 3502 19684", 
+                    "09 2841 57096", "09 9367 04512", "09 7480 32691", "09 6259 40738", "09 0138 95267", 
+                    "09 8516 03749", "09 4792 61085", "09 5304 97812", "09 1965 30478", "09 3271 84590", 
+                    "09 2086 49351", "09 9403 56127", "09 7158 20649", "09 6347 18052", "09 0219 73846", 
+                    "09 8025 41937", "09 4603 92178", "09 5174 08326", "09 1890 56243", "09 3462 87019", 
+                    "09 2705 13964", "09 9031 64758", "09 7618 35029", "09 6580 91473", "09 0327 54681", 
+                    "09 8945 36021", "09 4381 05796", "09 5826 70134", "09 1749 23568", "09 3064 18275", 
+                    "09 2530 67941", "09 9157 84203", "09 7806 42159", "09 6472 90318", "09 0913 57486", 
+                    "09 8624 75103", "09 4239 10657", "09 5708 34912", "09 1195 02864", "09 3682 49705", 
+                    "09 2453 61870", "09 9970 25431", "09 7314 58960", "09 6051 82743", "09 0246 39587", 
+                    "09 5210 93876", "09 6039 12457", "09 1487 36295", "09 7265 90183", "09 3804 71629", 
+                    "09 0952 87413", "09 4671 25038", "09 8390 47561", "09 2548 61037", "09 6103 59724", 
+                    "09 7024 18635", "09 3596 04812", "09 9127 50364", "09 5840 23179", "09 1357 02468", 
+                    "09 4982 60751", "09 8643 17502", "09 2018 73945", "09 6734 05218", "09 0596 84732", 
+                    "09 8213 59074", "09 4068 71529", "09 5729 36801", "09 1504 92736", "09 3987 16054", 
+                    "09 2451 08376", "09 9760 45123", "09 7083 29641", "09 6614 83057", "09 0475 21983", 
+                    "09 8507 92341", "09 4326 10975", "09 5681 74203", "09 1849 05372", "09 3015 67894", 
+                    "09 2293 48750", "09 9904 36581", "09 7138 02964", "09 6052 91473", "09 0876 54321", 
+                    "09 8450 39712", "09 4791 26850", "09 5217 60493", "09 1608 53724", "09 3479 21685", 
+                    "09 2356 09147", "09 9032 54861", "09 7501 43286", "09 6893 75142", "09 0019 58763", 
+                    "09 6842 15397", "09 7510 36824", "09 3298 50146", "09 0451 72369", "09 8136 04257", 
+                    "09 4975 28103", "09 5320 61498", "09 1603 97582", "09 2087 43615", "09 9415 80762", 
+                    "09 5763 29014", "09 1948 75036", "09 0312 68475", "09 6254 90831", "09 7036 12594", 
+                    "09 3591 87042", "09 8074 53261", "09 4169 05823", "09 5283 71960", "09 1047 62385", 
+                    "09 8596 40173", "09 4710 36982", "09 5364 91708", "09 1258 09437", "09 3679 24810", 
+                    "09 2901 57346", "09 9062 18457", "09 7854 03619", "09 6731 52490", "09 0189 65724", 
+                    "09 8830 21546", "09 4276 89130", "09 5013 76248", "09 1465 98307", "09 3708 45921", 
+                    "09 2340 76158", "09 9625 30874", "09 7943 85062", "09 6178 04235", "09 0532 97184", 
+                    "09 8069 47321", "09 4825 01673", "09 5946 13702", "09 1523 06478", "09 3197 68054", 
+                    "09 2780 49513", "09 9314 20658", "09 7109 52846", "09 6492 31075", "09 0841 57239", 
+                    "09 2176 49038", "09 8453 10926", "09 6301 84752", "09 7592 31864", "09 4015 67293", 
+                    "09 9238 54170", "09 5147 60839", "09 1864 05372", "09 3750 92146", "09 0629 74513", 
+                    "09 8345 27019", "09 4209 16583", "09 5978 03241", "09 1746 39502", "09 3085 42679", 
+                    "09 2614 78035", "09 9503 61427", "09 7421 89360", "09 6097 54281", "09 0832 46157", 
+                    "09 8274 15063", "09 4956 02318", "09 5801 37694", "09 1135 74902", "09 3370 28456", 
+                    "09 2054 69178", "09 9143 85260", "09 7789 04513", "09 6420 13785", "09 0019 58347", 
+                    "09 8652 97304", "09 4598 30721", "09 5437 29168", "09 1309 65472", "09 3968 01524", 
+                    "09 2817 93046", "09 9705 48612", "09 7291 56034", "09 6603 27491", "09 0248 15973", 
+                    "09 8105 32649", "09 4316 79805", "09 5620 84713", "09 1782 50639", "09 3549 10872", 
+                    "09 2938 74160", "09 9081 63524", "09 7642 08951", "09 6357 19042", "09 0731 84526",
+                    
+                    // --- အယောက် 300 ပြည့်အောင် ထပ်တိုးထားသော စာရင်း (101 မှ 300) ---
+                    "09 1112 22333", "09 2223 33444", "09 3334 44555", "09 4445 55666", "09 5556 66777",
+                    "09 6667 77888", "09 7778 88999", "09 8889 99000", "09 9990 00111", "09 0001 11222",
+                    "09 1234 56789", "09 9876 54321", "09 1357 92468", "09 8642 09753", "09 2468 01357",
+                    "09 7531 90864", "09 3691 25807", "09 0852 47193", "09 4715 29630", "09 9360 81475",
+                    "09 5802 74316", "09 1470 36982", "09 2581 47036", "09 3692 58147", "09 4703 69258",
+                    "09 5814 70369", "09 6925 81470", "09 7036 92581", "09 8147 03692", "09 9258 14703",
+                    "09 1593 72486", "09 8426 07531", "09 2604 81537", "09 7315 98204", "09 3719 50628",
+                    "09 6280 49175", "09 4820 63719", "09 5173 96802", "09 1048 27365", "09 8951 74620",
+                    "09 2063 85974", "09 7936 14085", "09 3174 58290", "09 6825 04137", "09 4096 37518",
+                    "09 5903 72864", "09 1245 78036", "09 8765 43210", "09 2309 87654", "09 7654 32109",
+                    "09 3490 12345", "09 6509 87654", "09 4580 91234", "09 5479 01234", "09 1605 43219",
+                    "09 8394 56781", "09 2718 36940", "09 7281 63904", "09 3804 52197", "09 6195 40728",
+                    "09 4970 23681", "09 5029 76413", "09 1368 40975", "09 8632 09741", "09 2487 51036",
+                    "09 7512 80943", "09 3694 28071", "09 6305 71824", "09 4170 39582", "09 5829 14763",
+                    "09 1045 78923", "09 8954 21076", "09 2167 90345", "09 7832 09651", "09 3076 15482",
+                    "09 6923 84701", "09 4210 59837", "09 5789 03214", "09 1432 67905", "09 8567 32190",
+                    "09 2690 41583", "09 7309 58421", "09 3851 60749", "09 6148 39250", "09 4027 56198",
+                    "09 5972 43806", "09 1840 75693", "09 8159 24307", "09 2963 08751", "09 7036 91245",
+                    "09 3214 56789", "09 6785 43210", "09 4102 36598", "09 5897 63201", "09 1524 38760",
+                    "09 8475 61239", "09 2360 97841", "09 7639 02158", "09 3958 14762", "09 6041 85273",
+                ];
+
+                const fragment = document.createDocumentFragment();
+
+                // စာရင်းထဲမှ ဖုန်းနံပါတ်များကို အသုံးပြုပြီး row များ ဖန်တီးခြင်း
+                const listLength = usernames.length;
+
+                for (let i = 0; i < listLength; i++) {
+                    const row = document.createElement('tr');
+                    row.className = "player-row hover:bg-[#820000]/70 transition duration-150";
+                    
+                    const playerNumber = i + 1; // 1 ကနေ စရေရန်
+                    // ဤနေရာတွင် maskUsername function ကို ခေါ်ဆိုပြီး ဖုန်းနံပါတ်ကို * ဖြင့် အစားထိုးသည်။
+                    const maskedName = maskUsername(usernames[i]); 
+
+                    row.innerHTML = `
+                        <td class="player-cell whitespace-nowrap text-sm font-medium text-yellow-300">
+                            ${playerNumber}
+                        </td>
+                        <td class="player-cell whitespace-nowrap text-base font-semibold text-white">
+                            ${maskedName}
+                        </td>
+                    `;
+                    fragment.appendChild(row);
+                }
+                tableBody.appendChild(fragment);
+            }
+
+            // စာရင်းကို စတင်ထုတ်လုပ်ခြင်း
+            generatePlayerList();
+        });
+    </script>
+</body>
+</html>
