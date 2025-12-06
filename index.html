@@ -135,7 +135,7 @@
 
             if (!tableBody) return;
 
-            // --- 1. Username ကို တစ်လုံးခြား (*) ဖြင့် အစားထိုးသည့် Function (Updated) ---
+            // --- 1. Username ကို တစ်လုံးခြား (*) ဖြင့် အစားထိုးသည့် Function ---
             function maskUsername(username) {
                 if (!username) return "";
                 let masked = "";
@@ -196,8 +196,22 @@
             
             // --- 3. Player List Generation (ဖုန်းနံပါတ်စာရင်း ၃၀၀ ခု) ---
             function generatePlayerList() {
-                // ပေးပို့ထားသော ဖုန်းနံပါတ်စာရင်း (Username အဖြစ် အစားထိုးထားသည်)
-                const usernames = [
+                // *** ဤနေရာကို ပြောင်းလဲပြီးပါပြီ။ ***
+                const updatedUsernames = [
+                    "09773178865", "09253313377", "09959900742", "09941720396", "09750536606", 
+                    "09684115796", "09672457383", "ijlo16", "09971626238", "phoo11", 
+                    "09765665528", "09968428981", "doxob", "09751752306", "09751437540", 
+                    "09673525605", "09420721584", "tinker69", "09693307714", "09988893549", 
+                    "09257876010", "ayetz13", "09674821499", "09420710155", "09448544031", 
+                    "09676319889", "09794453266", "09669921492", "09970978438", "sanlin62", 
+                    "09250870426", "09890524535", "09424914696", "09763117571", "09664527862", 
+                    "09441579685", "'k777k", "09263341072", "khn49", "09676441783", 
+                    "nw6661", "09777238265", "09454636209", "09450762977", "09441039125", 
+                    "09664776708", "aungzinmoe", "aungzin19", "09517045000", "09696436599"
+                ];
+
+                // မူရင်းစာရင်း ၃၀၀ အနက်မှ ပထမဆုံး ၅၀ နေရာကို အစားထိုးသည်။
+                const originalUsernames = [
                     "09 8745 63214", "09 4128 75903", "09 5693 28147", "09 1074 86325", "09 3502 19684", 
                     "09 2841 57096", "09 9367 04512", "09 7480 32691", "09 6259 40738", "09 0138 95267", 
                     "09 8516 03749", "09 4792 61085", "09 5304 97812", "09 1965 30478", "09 3271 84590", 
@@ -262,18 +276,21 @@
                     "09 8475 61239", "09 2360 97841", "09 7639 02158", "09 3958 14762", "09 6041 85273",
                 ];
 
+                // ပေးပို့ထားသော ၅၀ ဖြင့် မူရင်းစာရင်း၏ ပထမဆုံး ၅၀ ကို အစားထိုး
+                const finalUsernames = updatedUsernames.concat(originalUsernames.slice(updatedUsernames.length));
+
                 const fragment = document.createDocumentFragment();
 
-                // စာရင်းထဲမှ ဖုန်းနံပါတ်များကို အသုံးပြုပြီး row များ ဖန်တီးခြင်း
-                const listLength = usernames.length;
+                // စာရင်းထဲမှ Username များကို အသုံးပြုပြီး row များ ဖန်တီးခြင်း
+                const listLength = finalUsernames.length;
 
                 for (let i = 0; i < listLength; i++) {
                     const row = document.createElement('tr');
                     row.className = "player-row hover:bg-[#820000]/70 transition duration-150";
                     
                     const playerNumber = i + 1; // 1 ကနေ စရေရန်
-                    // ဤနေရာတွင် maskUsername function ကို ခေါ်ဆိုပြီး ဖုန်းနံပါတ်ကို * ဖြင့် အစားထိုးသည်။
-                    const maskedName = maskUsername(usernames[i]); 
+                    // ဤနေရာတွင် maskUsername function ကို ခေါ်ဆိုပြီး Username ကို * ဖြင့် အစားထိုးသည်။
+                    const maskedName = maskUsername(finalUsernames[i]); 
 
                     row.innerHTML = `
                         <td class="player-cell whitespace-nowrap text-sm font-medium text-yellow-300">
