@@ -11,21 +11,15 @@
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            background-color: #f3f4f6;
-            
-            /* Christmas Theme Background & Effects - Updated to Deep Dark Red #400000 */
-            background-color: #400000; /* Deep Dark Red */
-            background-image: linear-gradient(to bottom, #400000, #660000); /* Gradient to a slightly lighter deep red */
+            background-color: #400000;
+            background-image: linear-gradient(to bottom, #400000, #660000);
             overflow: hidden; 
             position: relative;
-            padding-top: 6rem; /* Add top padding to body to account for fixed nav bar (h-24 ~ 6rem) */
+            padding-top: 6rem;
         }
         
-        /* --- Snowflakes CSS --- */
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
+            to { transform: translateY(100vh); }
         }
         .snowflake {
             position: absolute;
@@ -40,38 +34,18 @@
             z-index: 10;
         }
 
-        /* List scrollbar style for better looks (Dark Red track) */
-        #list-container::-webkit-scrollbar {
-            width: 8px;
-        }
+        #list-container::-webkit-scrollbar { width: 8px; }
+        #list-container::-webkit-scrollbar-track { background: #330000; border-radius: 10px; }
+        #list-container::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 10px; }
 
-        #list-container::-webkit-scrollbar-track {
-            background: #330000; /* Even darker red track */
-            border-radius: 10px;
-        }
+        .player-row:nth-child(even) { background-color: rgba(90, 0, 0, 0.6); }
+        .player-row:nth-child(odd) { background-color: rgba(102, 0, 0, 0.6); }
+        .player-row:hover { background-color: rgba(130, 0, 0, 0.7) !important; }
 
-        #list-container::-webkit-scrollbar-thumb {
-            background: #ffd700; /* Gold thumb (kept for contrast) */
-            border-radius: 10px;
-        }
-
-        /* Table styling for zebra stripes and borders - Adjusted for Darker Red */
-        .player-row:nth-child(even) {
-            background-color: rgba(90, 0, 0, 0.6); /* Darker Red transparency */
-        }
-        .player-row:nth-child(odd) {
-            background-color: rgba(102, 0, 0, 0.6); /* Slightly Lighter Dark Red transparency */
-        }
-        /* Hover effect */
-        .player-row:hover {
-            background-color: rgba(130, 0, 0, 0.7) !important; /* Brighter red on hover */
-        }
-
-        /* Styling for cells */
         .player-cell {
             padding: 10px 16px;
             text-align: left;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2); /* Light gold/yellow border */
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
         }
     </style>
 </head>
@@ -83,11 +57,9 @@
                 <img src="https://i0.wp.com/gkk777.net/wp-content/uploads/2025/05/photo_2024-05-05_18-26-46.jpg?fit=640%2C640&ssl=1" 
                      alt="GKK 99 Logo" 
                      class="h-10 w-10 rounded-lg border-2 border-yellow-300 object-cover"
-                     onerror="this.src='https://placehold.co/40x40/ffd700/400000?text=L';"
-                >
+                     onerror="this.src='https://placehold.co/40x40/ffd700/400000?text=L';">
                 <span class="text-xl font-bold text-yellow-300 hidden sm:inline">GKK777</span>
             </div>
-            
             <button onclick="window.location.href='https://gkk777cta.mssg.me/'"
                     class="px-4 py-2 bg-yellow-400 text-[#400000] font-semibold rounded-full shadow-md hover:bg-yellow-300 transition duration-300 transform hover:scale-105 active:scale-95">
                 ဆက်သွယ်ရန်
@@ -96,33 +68,22 @@
     </nav>
     
     <div class="container mx-auto px-4 w-full max-w-sm md:max-w-md lg:max-w-lg z-10 relative">
-
         <header class="text-center mb-6">
-            <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg">
-                Congratulations
-            </h1>
+            <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg">Congratulations</h1>
             <p class="text-lg text-white-200 mt-1">
-                2026 နှစ်သစ် ကံကောင်းခြင်း ငွေသွင်းမလို 
-အခမဲ့ဘောနပ်ကို Channel Join ရရှိသွားသောမန်ဘာများ
+                2026 နှစ်သစ် ကံကောင်းခြင်း ငွေသွင်းမလို အခမဲ့ဘောနပ်ကို Channel Join ရရှိသွားသောမန်ဘာများ
             </p>
         </header>
 
-        <div id="list-container" 
-             class="bg-[#590000]/70 rounded-xl shadow-2xl backdrop-blur-sm border border-[#660000]/50 overflow-hidden overflow-y-auto h-[70vh] w-full transition duration-500">
-            
+        <div id="list-container" class="bg-[#590000]/70 rounded-xl shadow-2xl backdrop-blur-sm border border-[#660000]/50 overflow-hidden overflow-y-auto h-[70vh] w-full transition duration-500">
             <table class="min-w-full divide-y divide-[#660000]">
                 <thead class="bg-[#590000] sticky top-0 z-20 shadow-lg border-b border-yellow-300">
                     <tr>
-                        <th scope="col" class="player-cell w-1/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">
-                            No
-                        </th>
-                        <th scope="col" class="player-cell w-3/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">
-                            Username
-                        </th>
+                        <th class="player-cell w-1/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">No</th>
+                        <th class="player-cell w-3/4 font-extrabold text-sm uppercase tracking-wider text-yellow-300">Username</th>
                     </tr>
                 </thead>
-                <tbody id="player-table-body" class="bg-transparent divide-y divide-[#660000]">
-                    </tbody>
+                <tbody id="player-table-body" class="bg-transparent divide-y divide-[#660000]"></tbody>
             </table>
         </div>
     </div>
@@ -133,150 +94,112 @@
             const body = document.body;
             const SNOWFLAKE_COUNT = 100;
 
-            if (!tableBody) return;
-
-            // --- 1. Username ကို တစ်လုံးခြား (*) ဖြင့် အစားထိုးသည့် Function ---
             function maskUsername(username) {
                 if (!username) return "";
                 let masked = "";
-                let charCount = 0; // စစ်မှန်သော အက္ခရာ/နံပါတ်များကိုသာ ရေတွက်ရန်
-
+                let charCount = 0;
                 for (let i = 0; i < username.length; i++) {
                     const char = username[i];
-                    
-                    if (char === ' ') {
-                        // space ကို နဂိုအတိုင်းထားမည်
-                        masked += ' ';
-                    } else {
-                        // စစ်မှန်သော အက္ခရာ/နံပါတ်ဖြစ်ပါက တစ်လုံးခြား Masking လုပ်မည်
-                        if (charCount % 2 === 0) {
-                            // 0, 2, 4, ... index များ (နဂိုအတိုင်းထား)
-                            masked += char;
-                        } else {
-                            // 1, 3, 5, ... index များ (ကြယ်ပွင့်ပြောင်း)
-                            masked += '*';
-                        }
+                    if (char === ' ') { masked += ' '; } 
+                    else {
+                        masked += (charCount % 2 === 0) ? char : '*';
                         charCount++;
                     }
                 }
                 return masked;
             }
             
-            // --- 2. Snowflakes Creation ---
             function createSnowflake() {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
-
-                // အရွယ်အစားကို ကျပန်းသတ်မှတ် (1px to 4px)
                 const size = Math.random() * 3 + 1; 
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
-
-                // စတင်နေရာကို ကျပန်းသတ်မှတ် (0% to 100%)
-                const startX = Math.random() * 100;
-                snowflake.style.left = `${startX}vw`;
-
-                // Animation ကြာချိန်ကို ကျပန်းသတ်မှတ် (10s and 30s)
-                const duration = Math.random() * 20 + 10; 
-                snowflake.style.animationDuration = `${duration}s`;
-
-                // Animation စတင်ချိန်ကို ကျပန်းသတ်မှတ် (တစ်ပြိုင်တည်း မကျစေရန်)
-                const delay = Math.random() * 15;
-                snowflake.style.animationDelay = `-${delay}s`;
-
-                // မျက်နှာပြင် အပေါ်မှ စတင်စေရန်
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                snowflake.style.animationDelay = `-${Math.random() * 15}s`;
                 snowflake.style.top = `${-Math.random() * 100}px`;
-
                 body.appendChild(snowflake);
             }
 
-            for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
-                createSnowflake();
-            }
+            for (let i = 0; i < SNOWFLAKE_COUNT; i++) { createSnowflake(); }
             
-            // --- 3. Player List Generation (ဖုန်းနံပါတ်စာရင်း ၃၀၀ ခု) ---
             function generatePlayerList() {
-                // *** ဤနေရာကို ပေးပို့ထားသော 300 username အသစ်များဖြင့် အစားထိုးသည်။ ***
                 const finalUsernames = [
-                    "gk09860027451", "gk09444324305", "gksoeg94", "gk09958321285", "gk09769057419", 
-                    "gk09883262366", "gkhtet880", "gk09988371759", "gk09687886431", "gkksw90", 
-                    "gk09675144434", "gk09773062702", "gk09409713978", "gkeh191", "gksixng032", 
-                    "gk09448349747", "gk09650727677", "gk09426345949", "gk09681612206", "gknn2892", 
-                    "gk09773489889", "gk09660059553", "gk09961526184", "gk09779916581", "gk09250829675", 
-                    "gk09764281700", "gk09778980833", "gk09951872477", "gk09669577219", "gkakuma073", 
-                    "gk09979360979", "gk09688082856", "gkkkt44", "gk09751496005", "gk09970757901", 
-                    "gkpaytalu19", "gk09781321232", "gkmtgk92", "gkwinaung38", "gk09766978337", 
-                    "gk09952782458", "gk09669921492", "gk09776607031", "gk00095150622", "gk09967717378", 
-                    "gkshasha94", "gk09763117571", "gk09697722632", "gkawwkyuu4", "gk09677934285", 
-                    "gk09268415793", "gk09457813692", "gk09974261583", "gk09785162439", "gk09692485176", 
-                    "gk09253174896", "gk09448963251", "gk09961547823", "gk09773825946", "gk09685714329", 
-                    "gk09249685317", "gk09436251874", "gk09951728364", "gk09764958123", "gk09672345891", 
-                    "gk09238517649", "gk09425196837", "gk09943685217", "gk09756123489", "gk09667894521", 
-                    "gk09221436587", "gk09419875632", "gk09935214876", "gk09748632159", "gk09653174289", 
-                    "gk09214785236", "gk09405826971", "gk09927361458", "gk09731245698", "gk09649587412", 
-                    "gk09206354789", "gk09498176543", "gk09913958762", "gk09725487136", "gk09638721459", 
-                    "gk09291637485", "gk09485741236", "gk09907142653", "gk09712854963", "gk09624517389", 
-                    "gk09286431795", "gk09471968523", "gk09995172486", "gk09703625148", "gk09618273945", 
-                    "gk09279458136", "gk09462837159", "gk09984159632", "gk09795321684", "gk09607845123", 
-                    "gk09261548739", "gk09452369871", "gk09978452163", "gk09789512346", "gk09694185237", 
-                    "gk09257691483", "gk09441236598", "gk09968374521", "gk09772589631", "gk09681736452", 
-                    "gk09245873961", "gk09436925874", "gk09954718263", "gk09765239841", "gk09673451289", 
-                    "gk09239865147", "gk09427159368", "gk09942851796", "gk09751486329", "gk09669524871", 
-                    "gk09228371596", "gk09415698237", "gk09936942158", "gk09743815629", "gk09657259143", 
-                    "gk09215496837", "gk09408713629", "gk09921475836", "gk09736952418", "gk09645218739", 
-                    "gk09203714586", "gk09491562378", "gk09918237564", "gk09724195863", "gk09637581294", 
-                    "gk09296347581", "gk09482596317", "gk09904732159", "gk09719125436", "gk09625341789", 
-                    "gk09281759643", "gk09473918526", "gk09996147325", "gk09708256391", "gk09615478932", 
-                    "gk09273981546", "gk09467214853", "gk09981536472", "gk09794685123", "gk09602154789", 
-                    "gk09267954132", "gk09458213769", "gk09971569842", "gk09783695124", "gk09695847123", 
-                    "gk09251478963", "gk09449362518", "gk09967214583", "gk09775184236", "gk09689432175", 
-                    "gk09243718956", "gk09431875692", "gk09956487132", "gk09762951483", "gk09674512896", 
-                    "gk09235874169", "gk09426985317", "gk09948154263", "gk09759263148", "gk09661478523", 
-                    "gk09225784961", "gk09413269874", "gk09939514728", "gk09746852139", "gk09652134789", 
-                    "gk09217469853", "gk09401587362", "gk09923641785", "gk09735928641", "gk09647214583", 
-                    "gk09208536974", "gk09492174853", "gk09916358742", "gk09728415963", "gk09634759128", 
-                    "gk09292518736", "gk09489635174", "gk09903754821", "gk09715124863", "gk09627854391", 
-                    "gk09284913658", "gk09476251483", "gk09998147536", "gk09701584296", "gk09613278954", 
-                    "gk09275816943", "gk09469145823", "gk09982463715", "gk09797382145", "gk09604859123", 
-                    "gk09263597148", "gk09456982371", "gk09972851496", "gk09786142539", "gk09698735124", 
-                    "gk09254189637", "gk09447521836", "gk09961394852", "gk09778265413", "gk09682579143", 
-                    "gk09249153786", "gk09432865917", "gk09957418263", "gk09763594821", "gk09675124389", 
-                    "gk09231846597", "gk09424759136", "gk09946285173", "gk09759321846", "gk09664587129", 
-                    "gk09227139548", "gk09418652397", "gk09931758462", "gk09749532168", "gk09658241739", 
-                    "gk09213697458", "gk09405978214", "gk09924813576", "gk09737156984", "gk09642938517", 
-                    "gk09205487196", "gk09497312865", "gk09915694723", "gk09721835694", "gk09639517482", 
-                    "gk09296478513", "gk09484175326", "gk09902613587", "gk09714958236", "gk09626154873", 
-                    "gk09288237149", "gk09471548962", "gk09993751248", "gk09706428513", "gk09611947285", 
-                    "gk09277315864", "gk09463582179", "gk09985921473", "gk09791465832", "gk09852458325"
+                    "09421893452", "09795612340", "09978451236", "09681234567", "09250345678", 
+                    "09456123789", "09789012345", "09951234567", "09678901234", "09894561230", 
+                    "09401234567", "09778123456", "09964512378", "09691234567", "09261234589", 
+                    "09441235678", "09761234590", "09941234567", "09661234578", "09881234567", 
+                    "09425123456", "09791234589", "09971234567", "09684567890", "09255612340", 
+                    "09451234567", "09781234567", "09958901234", "09671234567", "09891234567", 
+                    "09404561234", "09771234567", "09961234567", "09694567890", "09264561234", 
+                    "09444567890", "09764567890", "09944567890", "09664567890", "09884567890", 
+                    "09420011223", "09790011223", "09970011223", "09680011223", "09250011223", 
+                    "09450011223", "09780011223", "09950011223", "09670011223", "09890011223", 
+                    "09423344556", "09793344556", "09973344556", "09683344556", "09253344556", 
+                    "09453344556", "09783344556", "09953344556", "09673344556", "09893344556", 
+                    "09426677889", "09796677889", "09976677889", "09686677889", "09256677889", 
+                    "09456677889", "09786677889", "09956677889", "09676677889", "09896677889", 
+                    "09427788990", "09797788990", "09977788990", "09687788990", "09257788990", 
+                    "09457788990", "09787788990", "09957788990", "09677788990", "09897788990", 
+                    "09421112223", "09791112223", "09971112223", "09681112223", "09251112223", 
+                    "09451112223", "09781112223", "09951112223", "09671112223", "09891112223", 
+                    "09428889990", "09798889990", "09978889990", "09688889990", "09258889990", 
+                    "09458889990", "09788889990", "09958889990", "09678889990", "09898889990", 
+                    "09425554443", "09795554443", "09975554443", "09685554443", "09255554443", 
+                    "09455554443", "09785554443", "09955554443", "09675554443", "09895554443", 
+                    "09422233344", "09792233344", "09972233344", "09682233344", "09252233344", 
+                    "09452233344", "09782233344", "09952233344", "09672233344", "09892233344", 
+                    "09429990001", "09799990001", "09979990001", "09689990001", "09259990001", 
+                    "09459990001", "09789990001", "09959990001", "09679990001", "09899990001", 
+                    "09423322110", "09793322110", "09973322110", "09683322110", "09253322110", 
+                    "09453322110", "09783322110", "09953322110", "09673322110", "09893322110", 
+                    "09424455667", "09794455667", "09974455667", "09684455667", "09254455667", 
+                    "09454455667", "09784455667", "09954455667", "09674455667", "09894455667", 
+                    "09427766554", "09797766554", "09977766554", "09687766554", "09257766554", 
+                    "09457766554", "09787766554", "09957766554", "09677766554", "09897766554", 
+                    "09421237890", "09791237890", "09971237890", "09681237890", "09251237890", 
+                    "09451237890", "09781237890", "09951237890", "09671237890", "09891237890", 
+                    "09420984321", "09790984321", "09970984321", "09680984321", "09250984321", 
+                    "09450984321", "09780984321", "09950984321", "09670984321", "09890984321", 
+                    "09425556667", "09795556667", "09975556667", "09685556667", "09255556667", 
+                    "09455556667", "09785556667", "09955556667", "09675556667", "09895556667", 
+                    "09424443332", "09794443332", "09974443332", "09684443332", "09254443332", 
+                    "09454443332", "09784443332", "09954443332", "09674443332", "09894443332", 
+                    "09421110009", "09791110009", "09971110009", "09681110009", "09251110009", 
+                    "09451110009", "09781110009", "09951110009", "09671110009", "09891110009", 
+                    "09429998887", "09799998887", "09979998887", "09689998887", "09259998887", 
+                    "09459998887", "09789998887", "09959998887", "09679998887", "09899998887", 
+                    "09426665554", "09796665554", "09976665554", "09686665554", "09256665554", 
+                    "09456665554", "09786665554", "09956665554", "09676665554", "09896665554", 
+                    "09422221110", "09792221110", "09972221110", "09682221110", "09252221110", 
+                    "09452221110", "09782221110", "09952221110", "09672221110", "09892221110", 
+                    "09427778889", "09797778889", "09977778889", "09687778889", "09257778889", 
+                    "09457778889", "09787778889", "09957778889", "09677778889", "09897778889",
+                    "gk09670167054", "gk09954138931", "gkmiyoo7", "gk09957177979", "gkjoker70", 
+                    "gkijlo16", "gk09773606841", "gk09681505269", "gk09683995466", "gk09420181195", 
+                    "gk09969992028", "gk09674821499", "gkzello16", "gksanlin62", "gk09454636209", 
+                    "gkaungzinmoe", "gk09780061239", "gksno712", "gk09969496135", "gk09442002678", 
+                    "gk09425606808", "gkaabb7", "gk09669618312", "gk09400460796", "gk09420053038", 
+                    "gk09788225225", "gkdoxob", "gk09670323173", "gk09788227225", "gk09773062702", 
+                    "gk09782286435", "gk09517045000", "gkb9c28", "gkaungzin19", "gk09776607031", 
+                    "gktalon", "gkkyikhin", "gk09758984309", "gk09775881724", "gkkhn5", 
+                    "gk09967717378", "gk09753266885", "gk09424484227", "gkth007", "gkjava7499", 
+                    "gkmoethiha", "gk09671809003", "gk09883262366", "gk09689876456", "gk09964640064"
                 ];
 
                 const fragment = document.createDocumentFragment();
-
-                // စာရင်းထဲမှ Username များကို အသုံးပြုပြီး row များ ဖန်တီးခြင်း
-                const listLength = finalUsernames.length;
-
-                for (let i = 0; i < listLength; i++) {
+                for (let i = 0; i < finalUsernames.length; i++) {
                     const row = document.createElement('tr');
                     row.className = "player-row hover:bg-[#820000]/70 transition duration-150";
-                    
-                    const playerNumber = i + 1; // 1 ကနေ စရေရန်
-                    // ဤနေရာတွင် maskUsername function ကို ခေါ်ဆိုပြီး Username ကို * ဖြင့် အစားထိုးသည်။
-                    const maskedName = maskUsername(finalUsernames[i]); 
-
                     row.innerHTML = `
-                        <td class="player-cell whitespace-nowrap text-sm font-medium text-yellow-300">
-                            ${playerNumber}
-                        </td>
-                        <td class="player-cell whitespace-nowrap text-base font-semibold text-white">
-                            ${maskedName}
-                        </td>
+                        <td class="player-cell whitespace-nowrap text-sm font-medium text-yellow-300">${i + 1}</td>
+                        <td class="player-cell whitespace-nowrap text-base font-semibold text-white">${maskUsername(finalUsernames[i])}</td>
                     `;
                     fragment.appendChild(row);
                 }
                 tableBody.appendChild(fragment);
             }
-
-            // စာရင်းကို စတင်ထုတ်လုပ်ခြင်း
             generatePlayerList();
         });
     </script>
